@@ -1,27 +1,25 @@
 #!/usr/bin/env python
-# src/financial_researcher/main.py
-import os
-from financial_researcher.crew import ResearchCrew
+import sys
+import warnings
 
-# Create output directory if it doesn't exist
-os.makedirs('output', exist_ok=True)
+from datetime import datetime
+
+from financial_researcher.crew import FinancialResearcher
+
+warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
+
 
 def run():
     """
-    Run the research crew.
+    Run the financial researcher crew.
     """
     inputs = {
-        'company': 'Apple'
+        'company': 'Tesla',
     }
-
-    # Create and run the crew
-    result = ResearchCrew().crew().kickoff(inputs=inputs)
-
-    # Print the result
-    print("\n\n=== FINAL REPORT ===\n\n")
+    
+    result = FinancialResearcher().crew().kickoff(inputs=inputs)
     print(result.raw)
 
-    print("\n\nReport has been saved to output/report.md")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     run()

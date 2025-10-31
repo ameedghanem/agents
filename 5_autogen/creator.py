@@ -17,6 +17,8 @@ logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
 
 
+# This creates agents !
+
 class Creator(RoutedAgent):
 
     # Change this system message to reflect the unique characteristics of this agent
@@ -32,6 +34,9 @@ class Creator(RoutedAgent):
     Also avoid environmental interests - try to mix up the business verticals so that every agent is different.
     Respond only with the python code, no other text, and no markdown code blocks.
     """
+
+    # the last sentence in the above system message is very important.
+    # this is how we tell it not return text/markdown. but to return a python code.
 
 
     def __init__(self, name) -> None:
@@ -58,6 +63,11 @@ class Creator(RoutedAgent):
         with open(filename, "w", encoding="utf-8") as f:
             f.write(response.chat_message.content)
         print(f"** Creator has created python code for agent {agent_name} - about to register with Runtime")
+
+        # this imports the python module that we just wrote.
+        # so if lets say we have a file called agent5.py
+        # this import_module means: import agent5.py 
+
         module = importlib.import_module(agent_name)
         await module.Agent.register(self.runtime, agent_name, lambda: module.Agent(agent_name))
         logger.info(f"** Agent {agent_name} is live")

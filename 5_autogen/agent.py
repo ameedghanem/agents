@@ -8,6 +8,11 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
+
+# its like a template.
+# this is a file that we are going to give another agent and ask it to use this as its model, as its example.
+# and to take this template and ot make other agents like this.
+
 class Agent(RoutedAgent):
 
     # Change this system message to reflect the unique characteristics of this agent
@@ -33,11 +38,13 @@ class Agent(RoutedAgent):
 
     @message_handler
     async def handle_message(self, message: messages.Message, ctx: MessageContext) -> messages.Message:
+        # remember type is like the agent name
         print(f"{self.id.type}: Received message")
         text_message = TextMessage(content=message.content, source="user")
         response = await self._delegate.on_messages([text_message], ctx.cancellation_token)
         idea = response.chat_message.content
         if random.random() < self.CHANCES_THAT_I_BOUNCE_IDEA_OFF_ANOTHER:
+            # recepient = el motalaqe (3ks el sender)
             recipient = messages.find_recipient()
             message = f"Here is my business idea. It may not be your speciality, but please refine it and make it better. {idea}"
             response = await self.send_message(messages.Message(content=message), recipient)

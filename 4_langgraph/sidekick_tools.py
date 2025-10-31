@@ -32,6 +32,7 @@ def push(text: str):
 
 
 def get_file_tools():
+    # the sandbox here is simply a directory we created, you can see it ..
     toolkit = FileManagementToolkit(root_dir="sandbox")
     return toolkit.get_tools()
 
@@ -49,6 +50,9 @@ async def other_tools():
     wikipedia = WikipediaAPIWrapper()
     wiki_tool = WikipediaQueryRun(api_wrapper=wikipedia)
 
+# PythonREPLTool is the ability to run python code.
+# This isn't sandox. Unlike when we did in crew when we ran python code within a docoker container..
+# so this should be used in caution. your choice !
     python_repl = PythonREPLTool()
     
     return file_tools + [push_tool, tool_search, python_repl,  wiki_tool]

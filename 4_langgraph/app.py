@@ -45,7 +45,7 @@ with gr.Blocks(title="Sidekick", theme=gr.themes.Default(primary_hue="emerald"))
         reset_button = gr.Button("Reset", variant="stop")
         go_button = gr.Button("Go!", variant="primary")
 
-    ui.load(setup, [], [sidekick])
+    ui.load(setup, [], [sidekick]) # sidekick is the state object assosiated with the session
     message.submit(
         process_message, [sidekick, message, success_criteria, chatbot], [chatbot, sidekick]
     )
@@ -55,6 +55,13 @@ with gr.Blocks(title="Sidekick", theme=gr.themes.Default(primary_hue="emerald"))
     go_button.click(
         process_message, [sidekick, message, success_criteria, chatbot], [chatbot, sidekick]
     )
+# line 55 means:
+# if you click the go botton, you will call the function process_message and will call it 
+# with inputs (first list)
+# and will hook up these outputs (second list)
+# So basically eveyrthing is running in the UI except of these callbacks that actually run on the server
+
+
     reset_button.click(reset, [], [message, success_criteria, chatbot, sidekick])
 
 

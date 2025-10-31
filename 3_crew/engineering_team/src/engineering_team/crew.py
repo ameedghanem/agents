@@ -1,14 +1,14 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-
-
+from crewai.agents.agent_builder.base_agent import BaseAgent
+from typing import List
 
 @CrewBase
 class EngineeringTeam():
     """EngineeringTeam crew"""
 
-    agents_config = 'config/agents.yaml'
-    tasks_config = 'config/tasks.yaml'
+    agents: List[BaseAgent]
+    tasks: List[Task]
 
     @agent
     def engineering_lead(self) -> Agent:
@@ -24,8 +24,8 @@ class EngineeringTeam():
             verbose=True,
             allow_code_execution=True,
             code_execution_mode="safe",  # Uses Docker for safety
-            max_execution_time=500, 
-            max_retry_limit=3 
+            max_execution_time=240, 
+            max_retry_limit=1
         )
     
     @agent
@@ -42,8 +42,8 @@ class EngineeringTeam():
             verbose=True,
             allow_code_execution=True,
             code_execution_mode="safe",  # Uses Docker for safety
-            max_execution_time=500, 
-            max_retry_limit=3 
+            max_execution_time=240, 
+            max_retry_limit=1
         )
 
     @task

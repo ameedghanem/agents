@@ -1,17 +1,14 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-
-
+from crewai.agents.agent_builder.base_agent import BaseAgent
+from typing import List
 
 @CrewBase
 class Coder():
     """Coder crew"""
 
-    agents_config = 'config/agents.yaml'
-    tasks_config = 'config/tasks.yaml'
-
-    # One click install for Docker Desktop:
-    #https://docs.docker.com/desktop/
+    agents: List[BaseAgent]
+    tasks: List[Task]
 
     @agent
     def coder(self) -> Agent:
