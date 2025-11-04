@@ -76,7 +76,7 @@ tools = [{"type": "function", "function": record_user_details_json},
 class Me:
 
     def __init__(self):
-        self.openai = OpenAI(api_key="AIzaSyAnuN3ZmLc-YdSmYlPHgJWNq0PAtlhWPYg", 
+        self.openai = OpenAI(api_key="", 
                             base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
                             )
         self.name = "Ameed Ghnaem"
